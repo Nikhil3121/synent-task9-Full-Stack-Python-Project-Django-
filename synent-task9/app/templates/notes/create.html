@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}New Note · Notely{% endblock %}
+{% block content %}
+<div class="form-card wide">
+    <h2>New note</h2>
+    <form method="POST">
+        <label>
+            Title
+            <input type="text" name="title" value="{{ title or '' }}" maxlength="150" required>
+        </label>
+        <label>
+            Content
+            <textarea name="content" rows="12" required>{{ content or '' }}</textarea>
+        </label>
+        <div class="form-actions">
+            <a href="{{ url_for('notes.list_notes') }}" class="btn secondary">Cancel</a>
+            <button type="submit" class="btn primary">Save</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

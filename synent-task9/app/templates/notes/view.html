@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}{{ note.title }} · Notely{% endblock %}
+{% block content %}
+<article class="note-detail">
+    <header>
+        <h1>{{ note.title }}</h1>
+        <small class="muted">
+            Created {{ note.created_at.strftime('%b %d, %Y') }}
+            {% if note.updated_at and note.updated_at != note.created_at %}
+                · Edited {{ note.updated_at.strftime('%b %d, %Y') }}
+            {% endif %}
+        </small>
+    </header>
+
+    <div class="note-body">{{ note.content }}</div>
+
+    <div class="note-actions">
+        <a href="{{ url_for('notes.edit_note', note_id=note.id) }}" class="btn secondary">Edit</a>
+        <form method="POST" action="{{ url_for('notes.delete_note', note_id=note.id) }}"
+              onsubmit="return confirm('Delete this note? This can\'t be undone.');" style="display:inline;">
+            <button type="submit" class="btn danger">Delete</button>
+        </form>
+        <a href="{{ url_for('notes.list_notes') }}" class="btn link">Back to notes</a>
+    </div>
+</article>
+{% endblock %}

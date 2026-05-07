@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}My Notes · Notely{% endblock %}
+{% block content %}
+<div class="notes-header">
+    <h2>My Notes</h2>
+    <form class="search-form" method="GET">
+        <input type="text" name="q" value="{{ q }}" placeholder="Search notes...">
+        <button type="submit" class="btn secondary">Search</button>
+    </form>
+</div>
+
+{% if notes %}
+    <div class="notes-grid">
+        {% for note in notes %}
+            <a class="note-card" href="{{ url_for('notes.view_note', note_id=note.id) }}">
+                <h3>{{ note.title }}</h3>
+                <p>{{ note.content[:120] }}{% if note.content|length > 120 %}...{% endif %}</p>
+                <small class="muted">{{ note.updated_at.strftime('%b %d, %Y · %H:%M') }}</small>
+            </a>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="empty-state">
+        {% if q %}
+            <p>No notes match "{{ q }}".</p>
+            <a href="{{ url_for('notes.list_notes') }}" class="btn secondary">Clear search</a>
+        {% else %}
+            <p>You haven't written anything yet.</p>
+            <a href="{{ url_for('notes.create_note') }}" class="btn primary">Write your first note</a>
+        {% endif %}
+    </div>
+{% endif %}
+{% endblock %}

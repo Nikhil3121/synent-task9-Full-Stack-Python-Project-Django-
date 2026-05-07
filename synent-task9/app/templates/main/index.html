@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Welcome · Notely{% endblock %}
+{% block content %}
+<section class="hero">
+    <h1>Your thoughts, saved.</h1>
+    <p>A simple, private place for your notes. Sign up free.</p>
+    <div class="cta">
+        <a href="{{ url_for('auth.register') }}" class="btn primary">Get started</a>
+        <a href="{{ url_for('auth.login') }}" class="btn secondary">I have an account</a>
+    </div>
+</section>
+{% endblock %}
